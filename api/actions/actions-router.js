@@ -1,5 +1,3 @@
-// Write your "actions" router here!
-// use endpoints get put post etc
 const express = require('express')
 const { validateActions, validateActionInfo} = require('./actions-middlware')
 
@@ -9,7 +7,6 @@ const router= express.Router();
 
  router.get('/', (req, res, next)=>{
     Actions.get()
-    //console.log('action')
     .then(actions=>{
         res.status(200).json(actions)
  }) 
@@ -45,7 +42,7 @@ router.delete('/:id', async (req, res, next)=>{
     try{
         const deleted = await Actions.remove(req.params.id)
         if(!deleted){
-            res.status(404).json([])
+            res.status(404).json()
         }else{
             res.json({ message: 'action deleted',
             data:deleted
