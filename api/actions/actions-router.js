@@ -31,4 +31,29 @@ router.post('/', validateActionInfo, (req, res, next)=>{
     })
     .catch(next)
 })
+
+router.put('/:id', validateActionInfo, async (req, res, next)=>{
+    try{
+        const updatedAction = await Actions.update(req.params.id, req.body)
+        res.status(200).json(updatedAction)
+    }catch(err){
+        next(err)
+    }
+})
+
+router.delete('/:id', async (req, res, next)=>{
+    try{
+        const deleted = await Actions.remove(req.params.id)
+        if(!deleted){
+            res.status(404).json([])
+        }else{
+            res.json({ message: 'action deleted',
+            data:deleted
+        })
+        }
+    }
+    catch(err){
+        res.status(500).json({ message: 'Error Error'})
+    }
+})
  module.exports = router
