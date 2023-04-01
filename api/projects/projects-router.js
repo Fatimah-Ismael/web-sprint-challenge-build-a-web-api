@@ -51,5 +51,11 @@ router.get('/:id/actions', validateId, async (req, res, next)=>{
     res.json(getProject)
 })
 
+router.use((err, req, res, next)=>{
+    res.status(500).json({
+        message:'just keep swimming, you got this',
+        err: err.message,
+    })
+})
 
 module.exports= router
